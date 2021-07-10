@@ -5,6 +5,7 @@ const passport = require('passport');
 const { mongoURI, cookieKey } = require('./config/keys');
 
 require('./models/user');
+require('./models/alert');
 require('./services/passport');
 
 mongoose.connect(mongoURI, {
