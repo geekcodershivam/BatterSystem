@@ -8,7 +8,7 @@ const alertSchema = new Schema({
   days: String,
   email: String,
   phone: String,
-  _user: { type: Schema.Types.ObjectId, ref: 'User' },
+  
 });
 
 mongoose.model('alert', alertSchema);
