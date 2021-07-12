@@ -17,6 +17,7 @@ exports.createAlerts = async (req, res) => {
       days,
       email,
       phone,
+      _user: req.user.id,
     });
     let response = await alert.save();
     console.log(response);
