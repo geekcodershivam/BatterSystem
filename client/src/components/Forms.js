@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useFormik } from 'formik';
+import React, { useState,useEffect } from 'react';
+import {useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +8,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
+import {connect} from 'react-redux';
+import {creatAlerts, fetchAlerts} from '../actions/index'
 import MenuItem from '@material-ui/core/MenuItem';
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -26,26 +28,26 @@ const validationSchema = yup.object({
   name: yup.string('Enter your Name').required('Name is required'),
   value: yup.number().positive().required('Values is required'),
 });
-export default function Forms() {
+ function Forms(props) {
   const [day, setDay] = useState('Every Day');
   const formik = useFormik({
     initialValues: {
       name: '',
       email: '',
-      value: '',
+      value: 1,
       phone: '',
       days: day,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      props.creatAlerts(values);
     },
   });
 
   const days = [
     {
-      value: 'Every Day',
-      label: 'Every Day',
+      value: 'Everyday',
+      label: 'Everyday',
     },
     {
       value: 'Monday',
@@ -56,10 +58,29 @@ export default function Forms() {
       label: 'Tuesday',
     },
     {
-      value: 'Web',
-      label: 'Web',
+      value: 'Wednesday',
+      label: 'Wednesday',
     },
+    {
+      value: 'Thursday',
+      label: 'Thursday',
+    },
+    {
+      value: 'Friday',
+      label: 'Friday',
+    },
+    {
+      value: 'Saturday',
+      label: 'Saturday',
+    },{
+      value: 'Sunday',
+      label: 'Sunday',
+    },
+
   ];
+  useEffect(()=>{
+   props.fetchAlerts()
+  },[props])
 
   return (
     <div className="item content-2">
@@ -92,9 +113,9 @@ export default function Forms() {
         <FormControl component="fieldset">
           <RadioGroup
             style={{ display: 'inline' }}
-            aria-label="picked"
-            name="picked"
-            value={formik.values.picked}
+            aria-label="criteria"
+            name="criteria"
+            value={formik.values.criteria}
             onChange={formik.handleChange}
           >
             <FormControlLabel
@@ -180,3 +201,5 @@ export default function Forms() {
     </div>
   );
 }
+
+export default connect(null,{creatAlerts, fetchAlerts})(Forms)

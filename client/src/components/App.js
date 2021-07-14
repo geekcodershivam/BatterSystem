@@ -12,7 +12,7 @@ function App(props) {
   useEffect(() => {
     props.fetchUser();
     props.fetchAlerts()
-  },[]);
+  },[props]);
   const ren = (name) => {
     if (name === 'Dashboard') {
       return Dashboard;

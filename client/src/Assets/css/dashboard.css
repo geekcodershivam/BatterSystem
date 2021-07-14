@@ -18,9 +18,6 @@
   grid-area: content-0;
 }
 
-.content-1 {
-  grid-area: content-1;
-}
 
 .content-2 {
   grid-area: content-2;
@@ -49,20 +46,7 @@
   font-weight: bold;
 }
 
-.header {
-  background-color: #1EAAFC;
-  background-image: linear-gradient(160deg, #6C52D9 0%, #9B8AE6 127%);
-}
 
-.sidebar {
-  background-image: linear-gradient(203deg, #3EDFD7 0%, #29A49D 90%)
-}
-
-.content-1
-{
-  
-  background-image: linear-gradient(130deg, #6C52D9 0%, #1EAAFC 85%, #3EDFD7 100%);
-}
 
 .content-3 {
   display: flow-root;
