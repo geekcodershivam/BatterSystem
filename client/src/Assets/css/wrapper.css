@@ -11,6 +11,7 @@
 }
 
 .content-1 {
+
   grid-area: content-1;
 }
 
@@ -18,11 +19,27 @@
   grid-area: content-2;
 }
 
-.content-3 {
-  grid-area: content-3;
+.MuiTableCell-root {
+    border-bottom: 1px solid white !important;
+    
 }
+.MuiTableCell-stickyHeader{
+  border-bottom: 1px solid rgba(224, 224, 224, 1) !important;
+  font-weight: 600 !important;
+  background-color:white !important;
+  padding: 9px !important;
+}
+.content-3 {
+  display: grid;
+  grid-area: content-3;
+  width: '100%',
+  
+}
+form{
+    padding: 20px;
 
-
-
-
-
+}
+.btn{
+    background:black;
+    left: 76%;
+}

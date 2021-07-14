@@ -4,14 +4,15 @@ import { connect } from 'react-redux';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
 import SideMenu, { menuItems } from './SideMenu';
-import { fetchUser } from '../actions/index';
+import { fetchUser,fetchAlerts } from '../actions/index';
 import history from '../history';
 import '../Assets/css/app.css';
 function App(props) {
   const [inactive, setInactive] = useState(false);
   useEffect(() => {
     props.fetchUser();
-  },[props]);
+    props.fetchAlerts()
+  },[]);
   const ren = (name) => {
     if (name === 'Dashboard') {
       return Dashboard;
@@ -64,4 +65,4 @@ function App(props) {
     </BrowserRouter>
   );
 }
-export default connect(null, { fetchUser })(App);
+export default connect(null, { fetchUser,fetchAlerts })(App);

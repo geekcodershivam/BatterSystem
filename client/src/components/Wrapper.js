@@ -1,11 +1,21 @@
 import React from 'react';
 import '../Assets/css/wrapper.css';
-export default function Wrapper() {
+import Forms from './Forms'
+import Tables from './Tables';
+import {connect} from 'react-redux'
+function Wrapper(props) {
+  const data=props.alert===null ? []: props.alert;
   return (
     <div className="wrapper">
-      <div className="item content-1">Content-1</div>
-      <div className="item content-2">Content-2</div>
-      <div className="item content-3">Content-3</div>
+      <div className="item content-1">Forms</div>
+      <Forms  />
+      {/* <div >Content-3</div> */}
+      <Tables data={data}/>
     </div>
   );
 }
+
+function mapStateToProps({alert}){
+  return {alert};
+}
+export default connect(mapStateToProps,null)(Wrapper)

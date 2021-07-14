@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { mongoURI, cookieKey } = require('./config/keys');
 
 require('./models/user');
@@ -28,6 +29,7 @@ app.use(
     keys: [cookieKey],
   })
 );
+app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());

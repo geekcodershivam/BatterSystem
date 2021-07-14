@@ -243,7 +243,7 @@ body{
 .container{
   margin-left: 300px;
   transition: margin-left .2s ease-in;
-  padding: 50px;
+  padding: 10px;
   box-sizing: border-box;
 }
 

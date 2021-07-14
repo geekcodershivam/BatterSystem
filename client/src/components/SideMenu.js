@@ -44,8 +44,8 @@ export const menuItems = [
 
 const SideMenu = (props) => {
   const [inactive, setInactive] = useState(false);
-  const [isauth, setAuth] = useState(false);
-
+  const [isauth, setAuth] = useState(true);
+  
   useEffect(() => {
     if (inactive) {
       removeActiveClassFromSubMenu();
@@ -56,20 +56,6 @@ const SideMenu = (props) => {
     
   }, [inactive]);
 
-  useEffect(()=>{
-    switch (props.auth) {
-      case null:
-        setAuth(false)
-        return;
-      case false:
-        setAuth(false)
-        return;
-      default:
-        setAuth(true)
-         return; 
-      }
-  },[props])
-
   //just an improvment and it is not recorded in video :(
   const removeActiveClassFromSubMenu = () => {
     document.querySelectorAll(".sub-menu").forEach((el) => {
@@ -77,7 +63,7 @@ const SideMenu = (props) => {
     });
   };
 
-  const st=(isauth)?{display:'block'}:{display:'none'};
+  const st=(isauth===true)?{display:'block'}:{display:'none'};
   /*just a little improvement over click function of menuItem
     Now no need to use expand state variable in MenuItem component
   */
