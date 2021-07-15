@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Landing(props) {
   const classes = useStyles();
-
+  
   useEffect(()=>{
     switch (props.auth) {
       case null:

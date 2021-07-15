@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState} from 'react';
 import {useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -9,7 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
 import {connect} from 'react-redux';
-import {creatAlerts, fetchAlerts} from '../actions/index'
+import {creatAlerts, fetchAlerts} from '../actions/alertAction'
 import MenuItem from '@material-ui/core/MenuItem';
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -26,10 +26,10 @@ const validationSchema = yup.object({
     .max(10, 'to long'),
 
   name: yup.string('Enter your Name').required('Name is required'),
-  value: yup.number().positive().required('Values is required'),
+  value: yup.number().required('Values is required'),
 });
  function Forms(props) {
-  const [day, setDay] = useState('Every Day');
+  const [day, setDay] = useState('Everyday');
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -40,6 +40,8 @@ const validationSchema = yup.object({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      values['days']=day;
+      props.setForm(values);
       props.creatAlerts(values);
     },
   });
@@ -78,9 +80,7 @@ const validationSchema = yup.object({
     },
 
   ];
-  useEffect(()=>{
-   props.fetchAlerts()
-  },[props])
+
 
   return (
     <div className="item content-2">

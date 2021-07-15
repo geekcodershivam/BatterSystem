@@ -29,7 +29,7 @@ exports.createAlerts = async (req, res) => {
 
 exports.FetchAllalerts = async (req, res) => {
   try {
-    let data = await Alert.find();
+    let data = await Alert.find({_user:req.user._id});
     res.status(200).send({ data });
   } catch (ex) {
     res.status(400).send(ex.message);

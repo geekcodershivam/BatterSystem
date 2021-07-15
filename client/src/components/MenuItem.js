@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 /**
@@ -7,9 +7,8 @@ import { NavLink, Link } from 'react-router-dom';
  **/
 
 const MenuItem = (props) => {
-  const { name, subMenus, iconClassName, onClick, to, exact } = props;
-  const [expand, setExpand] = useState(false);
-
+  const { name, subMenus, iconClassName, to, clicked } = props;
+  const todisplay = clicked ? { display: 'none' } : { display: 'initial' };
   return (
     <li onClick={props.onClick}>
       <Link
@@ -24,7 +23,7 @@ const MenuItem = (props) => {
           <i className={iconClassName}></i>
         </div>
         <span>{name} </span>
-        <i className="bi bi-caret-down-fill arrow"></i>
+        <i style={todisplay} className="bi bi-caret-down-fill arrow"></i>
       </Link>
       {subMenus && subMenus.length > 0 ? (
         <ul className={`sub-menu`}>

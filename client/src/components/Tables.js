@@ -14,7 +14,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import {connect} from 'react-redux'
-import {deletAlerts} from '../actions/index'
+import {deletAlerts} from '../actions/alertAction'
 const columns = [
   { id: 'name', label: 'Name', },
   { id: 'priceSignal', label: 'Price Signal', },
@@ -44,7 +44,6 @@ const columns = [
   },
 ];
 
-
 const useStyles = makeStyles({
   container: {
     maxHeight: 440,
@@ -52,15 +51,17 @@ const useStyles = makeStyles({
 });
 
 function Tables(props) {
-  console.log(props.data)
+  
   useEffect(() => {
-    
-  }, [props.data])
+   (Array.isArray(props.data))?setData(props.data):setData([])
+  },[props]);
+
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  
-  const rows=props.data.map((ele)=>{
+  const [data, setData] = React.useState([]);
+
+  const rows=data.map((ele)=>{
     return {
       name:ele['name'],
       priceSignal:'DK1',
@@ -96,7 +97,7 @@ function Tables(props) {
            Alerts
         </Button>
         <Button
-          style={{ backgroundColor: 'white', color: 'grey', marginRight: '200px', padding: "5px 26px 5px 26px",
+          style={{ backgroundColor: 'white', color: 'grey', marginRight: '374px', padding: "5px 26px 5px 26px",
           }}
           variant="contained"
         >

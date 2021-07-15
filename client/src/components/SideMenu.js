@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
-
-
+import '../Assets/css/sideBar.css'
 import MenuItem from "./MenuItem";
 
 /**
@@ -42,19 +41,23 @@ export const menuItems = [
   { name: "Version History", to: `/versionhistory`, iconClassName: "bi bi-clock-history" }
 ];
 
-const SideMenu = (props) => {
+function SideMenu(props){
   const [inactive, setInactive] = useState(false);
-  const [isauth, setAuth] = useState(true);
-  
+  const [isauth, setAuth] = useState(false);
+  const [user,setUser]=useState({});
+  console.log(user)
   useEffect(() => {
     if (inactive) {
       removeActiveClassFromSubMenu();
     }
-
     props.onCollapse(inactive);
+    if(props.auth){
+      setAuth(true)
+      
+    }
+    setUser(props.auth)
 
-    
-  }, [inactive]);
+  }, [inactive,props]);
 
   //just an improvment and it is not recorded in video :(
   const removeActiveClassFromSubMenu = () => {
@@ -64,6 +67,8 @@ const SideMenu = (props) => {
   };
 
   const st=(isauth===true)?{display:'block'}:{display:'none'};
+  const icnosbased=(inactive===true)?{display:'none'}:{display: 'initial'};
+  const logouts=(inactive===true)?{display:'none'}:{marginLeft:'15px'};
   /*just a little improvement over click function of menuItem
     Now no need to use expand state variable in MenuItem component
   */
@@ -87,8 +92,8 @@ const SideMenu = (props) => {
   return (
     <div style={st} className={`side-menu ${inactive ? "inactive" : ""}`}>
       <div className="top-section">
-        <div className="logo">
-        <h5 style={{fontSize: '19px'}}>Grid Manager 2.0</h5>
+        <div className="logo" style={icnosbased}>
+        <h5 style={{fontSize: '19px',}}>Grid Manager 2.0</h5>
         </div>
 
 
@@ -105,11 +110,11 @@ const SideMenu = (props) => {
 
       <div className="side-menu-footer">
         <div className="avatar">
-          <img src="https://lh3.googleusercontent.com/a-/AOh14GijEW0risVUivRVwZUqnbQRkFUrM9i8FwoZMN-g9Q=s96-c" alt="user" />
+          <img src={!user?"https://":user.photo} alt="user" />
         </div>
         <div className="user-info">
-          <h5>Hey, Rizwan Khan</h5>
-          <p>User Id:  </p>
+          <h5>{!user?"":user.name}</h5>
+          <p>User Id:{!user?"":user.googleId}  </p>
         </div>
       </div>
 
@@ -123,6 +128,7 @@ const SideMenu = (props) => {
               to={menuItem.to}
               subMenus={menuItem.subMenus || []}
               iconClassName={menuItem.iconClassName}
+              clicked={inactive}
               onClick={(e) => {
                 if (inactive) {
                   setInactive(false);
@@ -135,9 +141,18 @@ const SideMenu = (props) => {
       </div>
       <div className="log-item">
         <div className="log-icon">
-         <i className="bi bi-power"></i>
+        <a style={{
+              textDecoration: 'none',
+              color: 'white',
+              fontSize: '24px'
+        }}  href="/api/logout"><i className="bi bi-power"></i></a>
+         
         </div>
-        <span style={{marginLeft:'15px'}}> Logout </span> 
+        <a style={{
+              textDecoration: 'none',
+              color: 'white',
+        }}  
+        href="/api/logout"><span style={logouts}> Logout </span></a> 
         </div>
     </div>
   );

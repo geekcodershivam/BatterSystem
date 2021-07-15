@@ -32,6 +32,13 @@
   padding: 21px;
   align-items: flex-end;
 }
+@media screen and (max-width: 880px) {
+  .wrapper{
+    display: flex;
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+}
 
 .content-2 {
   grid-area: content-2;
