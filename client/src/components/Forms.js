@@ -30,18 +30,18 @@ const validationSchema = yup.object({
 });
  function Forms(props) {
   const [day, setDay] = useState('Everyday');
+  const [type, setType] = useState('DK-1');
   const formik = useFormik({
     initialValues: {
       name: '',
       email: '',
-      value: 1,
+      value: 0,
       phone: '',
       days: day,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       values['days']=day;
-      props.setForm(values);
       props.creatAlerts(values);
     },
   });
@@ -80,6 +80,20 @@ const validationSchema = yup.object({
     },
 
   ];
+
+  const types = [
+    {
+      value: 'DK-1',
+      label: 'DK-1',
+    },
+    {
+      value: 'DK-2',
+      label: 'DK-2',
+    },
+    {
+      value: 'DK-3',
+      label: 'DK-3',
+    }]
 
 
   return (
@@ -157,6 +171,24 @@ const validationSchema = yup.object({
           variant="outlined"
         >
           {days.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        <TextField
+          fullWidth
+          margin="normal"
+          id="outlined-select-currency"
+          select
+          value={type}
+          onChange={(e) => {
+            setType(e.target.value);
+          }}
+          variant="outlined"
+        >
+          {types.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>

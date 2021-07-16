@@ -10,7 +10,6 @@ useEffect(()=>{
 
 
 const data = (props.alert.data==={})?[]:props.alert.data;
-console.log(data)
   return (
  <Tables data={data}/>
   )

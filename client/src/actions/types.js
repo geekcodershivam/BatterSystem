@@ -2,3 +2,4 @@ export const FETCH_USER='FETCH_USER';
 export const FETCH_ALERTS='FETCH_ALERTS';
 export const DELETE_ALERT='DELETE_ALERT';
 export const CREATE_ALERT='CREATE_ALERT';
+export const GRAPH_FETCH='GRAPH_FETCH';

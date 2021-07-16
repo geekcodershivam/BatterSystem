@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-
 const alertSchema = new Schema({
   name: String,
   criteria: String,

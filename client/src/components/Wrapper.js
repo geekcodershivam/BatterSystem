@@ -10,51 +10,40 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import createData from '../Assets/dataController'
+let monthsList = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+
+const dateArray=(data)=>{
+  if(Array.isArray(data)){
+    const date=[...new Set(data.map((ele)=> {return ele.date}))]
+    return date.map((ele)=>{ return{value:ele,label: ele}})
+  }
+  else{
+  const today = new Date();
+  const date = monthsList[today.getMonth()] + ' ' +today.getDate();
+    return [{value:date,label: date}]
+  }
+}
+
 function Wrapper(props) {
-  const [date, setDate] = useState('July 17');
+  const [date, setDate] = useState(`${monthsList[new Date().getMonth()]+' '+new Date().getDate()}`);
   const [formdata, setForm] = useState({});
-  console.log(formdata);
-
-  const datas = {
-    labels: ['2015', '2016', '2017', '2018', '2019', '2020'],
-    datasets: [
-      {
-        label: 'DEU',
-        data: [55, 46, 54.89, 53.81, 50, 50],
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgba(75,192,192, 1)',
-        borderWidth: 1,
-      },
-      {
-        label: 'USA',
-        data: [30.23, 50, 50, 50, 44.33, 50],
-        fill: true,
-        backgroundColor: 'rgb(240,219,79,0.2)',
-        borderColor: 'rgba(240,219,79, 1)',
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const days = [
-    {
-      value: 'July 17',
-      label: 'July 17',
-    },
-    {
-      value: 'Monday',
-      label: 'Monday',
-    },
-    {
-      value: 'Tuesday',
-      label: 'Tuesday',
-    },
-    {
-      value: 'Web',
-      label: 'Web',
-    },
-  ];
+  const days = dateArray(props.graph);
+  const data=createData(props.graph,days[0].value);
 
   return (
     <div className="wrapper">
@@ -103,13 +92,13 @@ function Wrapper(props) {
           style={{ fontWeight: '600', color: 'black', marginRight: '90%' }}
           component="legend"
         >
-          Create Alert
+          Power Cost
         </FormLabel>
         <Graph
           className="chart"
           type="Line"
           title={'Power Cost'}
-          data={datas}
+          data={data}
         />
       </div>
 
@@ -119,5 +108,7 @@ function Wrapper(props) {
     </div>
   );
 }
-
-export default connect(null, null)(Wrapper);
+function mapStateToProps(state) {
+  return { graph: state.graph };
+}
+export default connect(mapStateToProps, null)(Wrapper);

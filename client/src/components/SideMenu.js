@@ -45,7 +45,6 @@ function SideMenu(props){
   const [inactive, setInactive] = useState(false);
   const [isauth, setAuth] = useState(false);
   const [user,setUser]=useState({});
-  console.log(user)
   useEffect(() => {
     if (inactive) {
       removeActiveClassFromSubMenu();
@@ -81,7 +80,6 @@ function SideMenu(props){
         removeActiveClassFromSubMenu();
         menuItems.forEach((el) => el.classList.remove("active"));
         el.classList.toggle("active");
-        console.log(next);
         if (next !== null) {
           next.classList.toggle("active");
         }
@@ -99,9 +97,9 @@ function SideMenu(props){
 
         <div onClick={() => setInactive(!inactive)} className="toggle-menu-btn">
           {inactive ? (
-            <i class="bi bi-arrow-right-square-fill"></i>
+            <i className="bi bi-arrow-right-square-fill"></i>
           ) : (
-            <i class="bi bi-arrow-left-square-fill"></i>
+            <i className="bi bi-arrow-left-square-fill"></i>
           )}
         </div>
       </div>

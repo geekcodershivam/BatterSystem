@@ -8,14 +8,11 @@ export const fetchAlerts = () => async (dispatch) => {
 };
 
 export const deletAlerts = (id) => async (dispatch) => {
-  console.log(id)
-  const res = await axios.delete(`http://localhost:5000/api/delete/${id}`);
+  const res = await axios.delete(`/api/delete/${id}`);
   dispatch({ type: DELETE_ALERT, payload: res.data});
 };
 
 export const creatAlerts = (data) => async (dispatch) => {
-  console.log(data)
   const res = await axios.post('/api/createAlert',data);
   dispatch({ type: CREATE_ALERT, payload: res.data});
-  history.push('/dashboard')
 }

@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Landing from './Landing';
-import Dashboard from './Dashboard';
+import Peak from './Peak';
 import SideMenu, { menuItems } from './SideMenu';
 import { fetchUser } from '../actions/index';
 import { fetchAlerts } from '../actions/alertAction';
+import { FetchGraphsData } from '../actions/graphAction';
 import history from '../history';
+import OnlyRender from './OnlyRender'
 import '../Assets/css/app.css';
+
 function App(props) {
   const [inactive, setInactive] = useState(false);
   useEffect(() => {
     props.fetchUser();
+    props.FetchGraphsData()
   }, []);
 
   useEffect(() => {
@@ -28,10 +32,12 @@ function App(props) {
   }, []);
 
   const ren = (name) => {
-    if (name === 'Dashboard') {
-      return Dashboard;
-    } else return name;
+    if (name==='Peak Shaving & Alerts') {
+      return Peak
+
+    } else return OnlyRender;
   };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -39,7 +45,6 @@ function App(props) {
           <Route exact path="/" component={Landing} />
           <SideMenu
             onCollapse={(inactive) => {
-              console.log(inactive);
               setInactive(inactive);
             }}
           />
@@ -60,7 +65,7 @@ function App(props) {
                         exact
                         key={subMenu.name}
                         path={subMenu.to}
-                        component={subMenu.name}
+                        component={ren(subMenu.name)}
                       />
                     ))
                   : null}
@@ -75,4 +80,4 @@ function App(props) {
 function mapStateToProps(state) {
   return { state: state.auth };
 }
-export default connect(mapStateToProps, { fetchUser, fetchAlerts })(App);
+export default connect(mapStateToProps, { fetchUser, fetchAlerts,FetchGraphsData })(App);

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import FormLabel from '@material-ui/core/FormLabel';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 function Header(props) {
-  console.log(props.auth);
   return (
     <div style={{
       display: 'inline-flex',
@@ -26,7 +25,8 @@ function Header(props) {
             justifyContent: 'flex-end',
             alignItems: 'center',
             fontWeight: '600', 
-            color: '#0d1148'
+            color: '#0d1148',
+            alignItems: 'flex-start'
       }}>
         <h4>Carlsberg Group</h4>
       <NotificationsActiveIcon style={{marginLeft: '18px'}}frontSize="large"/>

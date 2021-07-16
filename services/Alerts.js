@@ -3,6 +3,7 @@ const Alert = mongoose.model('alert');
 
 exports.createAlerts = async (req, res) => {
   try {
+    
     const { name, criteria, value, days, email, phone } = req.body;
 
     if (!name || !criteria || !value || !days || !email || !phone) {
@@ -20,7 +21,6 @@ exports.createAlerts = async (req, res) => {
       _user: req.user.id,
     });
     let response = await alert.save();
-    console.log(response);
     res.status(200).send(response._id);
   } catch (ex) {
     res.status(400).send(ex.message);
