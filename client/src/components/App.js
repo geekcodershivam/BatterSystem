@@ -1,40 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Router, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import Landing from './Landing';
-import Peak from './Peak';
-import SideMenu, { menuItems } from './SideMenu';
-import { fetchUser } from '../actions/index';
-import { fetchAlerts } from '../actions/alertAction';
-import { FetchGraphsData } from '../actions/graphAction';
-import history from '../history';
-import OnlyRender from './OnlyRender'
-import '../Assets/css/app.css';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Router, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import Landing from "./Landing";
+import Peak from "./Peak";
+import SideMenu, { menuItems } from "./SideMenu";
+import { fetchUser } from "../actions/index";
+import { fetchAlerts } from "../actions/alertAction";
+import { FetchGraphsData } from "../actions/graphAction";
+import history from "../history";
+import OnlyRender from "./OnlyRender";
+import "../Assets/css/app.css";
 
 function App(props) {
   const [inactive, setInactive] = useState(false);
   useEffect(() => {
     props.fetchUser();
-    props.FetchGraphsData()
-  }, []);
-
-  useEffect(() => {
-    switch (props.auth) {
-      case null:
-        return;
-      case false:
-        history.push('/');
-        return;
-      default:
-        history.push('/');
-        return;
-    }
-  }, []);
+    props.FetchGraphsData();
+  }, [props]);
 
   const ren = (name) => {
-    if (name==='Peak Shaving & Alerts') {
-      return Peak
-
+    if (name === "Peak Shaving & Alerts") {
+      return Peak;
     } else return OnlyRender;
   };
 
@@ -49,7 +35,7 @@ function App(props) {
             }}
           />
 
-          <div className={`container ${inactive ? 'inactive' : ''}`}>
+          <div className={`container ${inactive ? "inactive" : ""}`}>
             {menuItems.map((menu, index) => (
               <>
                 <Route
@@ -80,4 +66,8 @@ function App(props) {
 function mapStateToProps(state) {
   return { state: state.auth };
 }
-export default connect(mapStateToProps, { fetchUser, fetchAlerts,FetchGraphsData })(App);
+export default connect(mapStateToProps, {
+  fetchUser,
+  fetchAlerts,
+  FetchGraphsData,
+})(App);
