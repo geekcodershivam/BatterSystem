@@ -16,7 +16,7 @@ function App(props) {
   useEffect(() => {
     props.fetchUser();
     props.FetchGraphsData();
-  }, [props]);
+  }, []);
 
   const ren = (name) => {
     if (name === "Peak Shaving & Alerts") {
